@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 const {
   kebabCaseObjectKeys,
   objectToQueryString,

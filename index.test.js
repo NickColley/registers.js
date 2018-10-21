@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 const fetchMock = require('jest-fetch-mock')
 jest.setMock('node-fetch', fetchMock)
 const fetch = require('node-fetch')
