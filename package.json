@@ -1,0 +1,14 @@
+{
+  "name": "registers",
+  "version": "1.0.0",
+  "description": "JavaScript client for GOV.UK Registers",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "Nick Colley",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^2.2.0"
+  }
+}
