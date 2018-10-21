@@ -4,6 +4,12 @@ JavaScript client for the [GOV.UK Registers](https://www.registers.service.gov.u
 
 Work in progress at the moment, see [todo](#todo) for more.
 
+## Install
+
+```js
+npm install --save nickcolley/registers.js
+```
+
 ## Node
 
 > This project uses async/await in the examples which requires Node v8.x+.
@@ -129,6 +135,7 @@ See [examples/download.js](./examples/download.js)
 
 ### Todo
 
+- Publish to npm, going to ask the Registers team for their advice here.
 - Pagination
 - Error handling o-o
 - Validation
