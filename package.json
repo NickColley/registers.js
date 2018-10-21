@@ -1,7 +1,7 @@
 {
   "name": "registers",
-  "version": "1.0.0",
-  "description": "JavaScript client for GOV.UK Registers",
+  "version": "0.0.1",
+  "description": "JavaScript client for the GOV.UK Registers project",
   "main": "index.js",
   "scripts": {
     "test": "standard && jest"

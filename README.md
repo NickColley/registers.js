@@ -1,6 +1,6 @@
 # Registers.js
 
-JavaScript client for the GOV.UK Registers project
+JavaScript client for the [GOV.UK Registers](https://www.registers.service.gov.uk/) project
 
 Work in progress at the moment, see [todo](#todo) for more.
 

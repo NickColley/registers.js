@@ -1,4 +1,4 @@
-const Registers = require('../index.js')
+const Registers = require('registers')
 const country = new Registers('country')
 
 function getItemsFromRecords (records) {
