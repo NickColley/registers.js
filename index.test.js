@@ -86,13 +86,13 @@ describe('Registers', () => {
       expect(result).toEqual(fixture)
     })
     it('can get records that share a field-value for a particular field-name.', async () => {
-      const fixture = fixtures['register']['records?field-value=register&field-name=ofqual']
+      const fixture = fixtures['register']['records/registry/ofqual']
       fetch.mockResponse(JSON.stringify(fixture))
 
       const register = new Registers('register')
-      const result = await register.records({ fieldValue: 'register', fieldName: 'ofqual' })
+      const result = await register.records({ fieldName: 'registry', fieldValue: 'ofqual' })
 
-      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/records?field-value=register&field-name=ofqual', {
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/records/registry/ofqual', {
         headers: {
           'Accept': 'application/json'
         }
@@ -115,6 +115,31 @@ describe('Registers', () => {
         }
       })
       expect(Object.keys(result).length).toBe(66)
+      expect(result).toEqual(fixture)
+    })
+    it('params start and limit can be set', async () => {
+      const register = new Registers('register')
+      await register.entries({ start: 2, limit: 5000 })
+
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/entries?start=2&limit=5000', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+    })
+    it('can get individual entry using an entry number', async () => {
+      const fixture = fixtures['register']['entries/2']
+      fetch.mockResponse(JSON.stringify(fixture))
+
+      const register = new Registers('register')
+      const result = await register.entries(2)
+
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/entries/2', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      expect(Object.keys(result).length).toBe(1)
       expect(result).toEqual(fixture)
     })
   })

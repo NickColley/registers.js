@@ -40,9 +40,7 @@ class Registers {
   records (keyOrParams, options = {}) {
     const allowedParams = [
       'page-size', // (Optional) Maximum 5000
-      'page-index', // (Optional)
-      'field-name', // (Optional)
-      'field-value' // (Required if field-name set)
+      'page-index' // (Optional)
     ]
     let params = {}
     let pathname = 'records'
@@ -52,17 +50,40 @@ class Registers {
       if (options.entries) { // /records/{key}/entries
         pathname += '/entries'
       }
-    } else { // /records, // /records/{field-name}/{field-value}
-      params = keyOrParams
+    } else if (typeof keyOrParams === 'object') { // /records, // /records/{field-name}/{field-value}
+      const formattedObject = kebabCaseObjectKeys(keyOrParams)
+      if (
+        typeof formattedObject['field-name'] !== 'undefined' &&
+        typeof formattedObject['field-value'] !== 'undefined'
+      ) {
+        pathname += `/${formattedObject['field-name']}/${formattedObject['field-value']}`
+      } else {
+        params = keyOrParams
+      }
     }
 
     return request(
       this._getEndpoint(pathname, params, allowedParams)
     )
   }
-  entries () {
+  entries (entryNumberOrParams) {
+    const allowedParams = [
+      'start', // (Optional): Collection page number. Defaults to 1.
+      'limit' // (Optional): Collection page size. Defaults to 100. Maximum is 5000.
+    ]
+    let params = {}
+    let pathname = 'entries'
+
+    if (typeof entryNumberOrParams !== 'undefined') {
+      if (isNaN(entryNumberOrParams)) { // /entries
+        params = entryNumberOrParams
+      } else { // /entries/{entry-number}
+        pathname += '/' + entryNumberOrParams
+      }
+    }
+
     return request(
-      this._getEndpoint('entries')
+      this._getEndpoint(pathname, params, allowedParams)
     )
   }
   items () {

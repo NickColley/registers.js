@@ -982,7 +982,7 @@ module.exports = {
         ]
       }
     ],
-    'records?field-value=register&field-name=ofqual': {
+    'records/registry/ofqual': {
       'qualification-assessment-method': {
         'index-entry-number': '43',
         'entry-number': '43',
