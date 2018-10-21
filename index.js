@@ -1,11 +1,12 @@
 const fetch = require('node-fetch')
+
 const {
   kebabCaseObjectKeys,
   objectToQueryString,
   mergeDefaultObject
 } = require('./src/utilities.js')
 
-function requestJson (url) {
+function request (url) {
   return fetch(url, {
     headers: {
       'Accept': 'application/json'
@@ -28,7 +29,7 @@ class Registers {
     return `https://${this.name}.register.gov.uk/${pathname}${paramString}`
   }
   register () {
-    return requestJson(
+    return request(
       this._getEndpoint('register')
     )
   }
@@ -37,22 +38,22 @@ class Registers {
       'page-size': 100, // Maximum 5000
       'page-index': 1
     }
-    return requestJson(
+    return request(
       this._getEndpoint('records', params, defaultParams)
     )
   }
   entries () {
-    return requestJson(
+    return request(
       this._getEndpoint('entries')
     )
   }
   items () {
-    return requestJson(
+    return request(
       this._getEndpoint('items')
     )
   }
   downloadRegister () {
-    return requestJson(
+    return request(
       this._getEndpoint('download-register')
     )
   }
