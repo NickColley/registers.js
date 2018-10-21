@@ -6,12 +6,16 @@ const {
   validateParams
 } = require('./src/utilities.js')
 
-function request (url) {
+function request (url, type = 'json') {
+  const acceptHeader = (type === 'json') ? 'json' : 'octet-stream'
   return fetch(url, {
     headers: {
-      'Accept': 'application/json'
+      'Accept': `application/${acceptHeader}`
     }
   }).then(body => {
+    if (type === 'blob') {
+      return body.buffer()
+    }
     return body.json()
   }).catch(error => {
     throw error
@@ -68,7 +72,8 @@ class Registers {
   }
   downloadRegister () {
     return request(
-      this._getEndpoint('download-register')
+      this._getEndpoint('download-register'),
+      'blob'
     )
   }
 }

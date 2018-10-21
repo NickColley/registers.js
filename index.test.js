@@ -101,5 +101,55 @@ describe('Registers', () => {
       expect(result).toEqual(fixture)
     })
   })
+  describe('entries', () => {
+    it('returns json with defaults set', async () => {
+      const fixture = fixtures['register']['entries']
+      fetch.mockResponse(JSON.stringify(fixture))
+
+      const register = new Registers('register')
+      const result = await register.entries()
+
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/entries', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      expect(Object.keys(result).length).toBe(66)
+      expect(result).toEqual(fixture)
+    })
+  })
+  describe('items', () => {
+    it('returns json with defaults set', async () => {
+      const fixture = fixtures['register']['items/sha-256:610bde42d3ae2ed3dd829263fe461542742a10ca33865d96d31ae043b242c300']
+      fetch.mockResponse(JSON.stringify(fixture))
+
+      const register = new Registers('register')
+      const result = await register.items()
+
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/items', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      expect(Object.keys(result).length).toBe(5)
+      expect(result).toEqual(fixture)
+    })
+  })
+  describe('download-register', () => {
+    it('returns json with defaults set', async () => {
+      const fixture = fixtures['register']['download-register']
+      fetch.mockResponse(Buffer.from(fixture))
+
+      const register = new Registers('register')
+      const result = await register.downloadRegister()
+
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/download-register', {
+        headers: {
+          'Accept': 'application/octet-stream'
+        }
+      })
+      expect(result).toEqual(Buffer.from(fixture))
+    })
+  })
   describe.skip('pagination', () => {})
 })

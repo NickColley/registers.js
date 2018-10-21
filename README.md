@@ -15,6 +15,8 @@ JavaScript client for the GOV.UK Registers project
 
 ### Todo
 
+- Error handling o-o
+- Validation
 - Implement all of the API
 - Caching: Since Registers have a timestamp for when they were last updated, could we have a caching mode? This could also include adapters to allow for writing to memory, and also something more persistent
 - Performance? Streaming?
