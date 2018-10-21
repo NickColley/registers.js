@@ -113,17 +113,21 @@ See [examples/countries.js](./examples/countries.js)
 See [examples/all-endpoints.js](./examples/all-endpoints.js)
 
 ### Download and save register to disk
-See [examples/download.js](./examples/download.js)
+See [examples/download.js](./examples/downloadRegister/node.js)
 
 ## Browser
 
-[TBC]
+Working but not published yet, clone this repository and run `npm run build:browser:production`.
 
+I have put together a really inaccessible example (do not use), but hope to publish some production ready examples when/if this is published to npm:
+
+[JSBin Browser Example](https://output.jsbin.com/bucijav) ([Source](https://jsbin.com/bucijav/edit?js))
 
 ## Development
 
 ### Todo
 
+- Test browser code
 - Publish to npm, going to ask the Registers team for their advice here.
 - Pagination
 - Error handling o-o
