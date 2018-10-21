@@ -35,17 +35,13 @@ async function main () {
 main()
 ```
 
-### GET /register
-[Registers Documentation](https://docs.registers.service.gov.uk/api_reference/get_register/#get-register)
-
+### [GET /register](https://docs.registers.service.gov.uk/api_reference/get_register/#get-register)
 ```js
 const info = await country.register()
 console.log('GET /register', info)
 ```
 
-### GET /records
-[Registers Documentation](https://docs.registers.service.gov.uk/api_reference/get_records/#get-records)
-
+### [GET /records](https://docs.registers.service.gov.uk/api_reference/get_records/#get-records)
 ```js
 const records = await country.records()
 console.log('GET /records', records)
@@ -63,57 +59,43 @@ const records = await country.records({
 console.log('GET /records?page-index=1&page-size=5000', records)
 ```
 
-### GET /records/{key}
-[Registers Documentation](https://docs.registers.service.gov.uk/api_reference/get_records_key/#get-records-key)
-
+### [GET /records/{key}](https://docs.registers.service.gov.uk/api_reference/get_records_key/#get-records-key)
 ```js
 const countryRecord = await country.records('GB')
 console.log('GET /records/GB', countryRecord)
 ```
 
-### GET /records/{key}/entries
-[Registers documentation](https://docs.registers.service.gov.uk/api_reference/get_records_key_entries/#get-records-key-entries)
-
+### [GET /records/{key}/entries](https://docs.registers.service.gov.uk/api_reference/get_records_key_entries/#get-records-key-entries)
 ```js
 const countryRecordEntries = await country.records('GB', { entries: true })
 console.log('GET /records/GB/entries', countryRecordEntries)
 ```
 
-### GET /records/{field-name}/{field-value}
-[Registers documentation](https://docs.registers.service.gov.uk/api_reference/get_records_field_name_field_value/#get-records-field-name-field-value)
-
+### [GET /records/{field-name}/{field-value}](https://docs.registers.service.gov.uk/api_reference/get_records_field_name_field_value/#get-records-field-name-field-value)
 ```js
 const filteredRecords = await country.records({ fieldName: 'name', fieldValue: 'United Kingdom' })
 console.log('GET /records/name/United Kingdom', filteredRecords)
 ```
 
-### GET /entries
-[Registers documentation](https://docs.registers.service.gov.uk/api_reference/get_entries/#get-entries)
-
+### [GET /entries](https://docs.registers.service.gov.uk/api_reference/get_entries/#get-entries)
 ```js
 const entries = await country.entries()
 console.log('GET /entries', entries)
 ```
 
-### GET /entries/{entry-number}
-[Registers documentation](https://docs.registers.service.gov.uk/api_reference/get_entries_entry_number/#get-entries-entry-number)
-
+### [GET /entries/{entry-number}](https://docs.registers.service.gov.uk/api_reference/get_entries_entry_number/#get-entries-entry-number)
 ```js
 const secondEntry = await country.entries(6)
 console.log('GET /entries/2', secondEntry)
 ```
 
-### GET /items/{item-hash}
-[Registers documentation](https://docs.registers.service.gov.uk/api_reference/get_items_item_hash/#get-items-item-hash)
-
+### [GET /items/{item-hash}](https://docs.registers.service.gov.uk/api_reference/get_items_item_hash/#get-items-item-hash)
 ```js
 const item = await country.items('sha-256:6b18693874513ba13da54d61aafa7cad0c8f5573f3431d6f1c04b07ddb27d6bb')
 console.log('GET /items/sha-256:6b18693874513ba13da54d61aafa7cad0c8f5573f3431d6f1c04b07ddb27d6bb', item)
 ```
 
-### GET /download-register
-[Registers documentation](https://docs.registers.service.gov.uk/api_reference/get_download_register/#get-download-register)
-
+### [GET /download-register](https://docs.registers.service.gov.uk/api_reference/get_download_register/#get-download-register)
 ```js
 const downloadedRegisterAsBuffer = await country.downloadRegister()
 console.log('GET /download-register', downloadedRegisterAsBuffer)
