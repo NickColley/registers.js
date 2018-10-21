@@ -1,4 +1,4 @@
-const Registers = require('./index.js')
+const Registers = require('../index.js')
 const register = new Registers('register')
 
 async function main () {
