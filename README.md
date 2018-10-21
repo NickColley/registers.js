@@ -1,5 +1,8 @@
 # Registers.js
 
+[![Build Status](https://travis-ci.org/nickcolley/registers.js.svg?branch=master)](https://travis-ci.org/nickcolley/registers.js)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 JavaScript client for the [GOV.UK Registers](https://www.registers.service.gov.uk/) project
 
 Work in progress at the moment, see [todo](#todo) for more.
