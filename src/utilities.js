@@ -23,12 +23,10 @@ function objectToQueryString (object) {
   return stringifiedParams ? ('?' + stringifiedParams) : ''
 }
 
-function mergeDefaultObject (originalObject, defaultObject = {}) {
+function validateParams (originalObject, allowedParams = []) {
   let mergedObject = {}
-  Object.keys(defaultObject).forEach(key => {
-    if (typeof originalObject[key] === 'undefined') {
-      mergedObject[key] = defaultObject[key]
-    } else {
+  Object.keys(originalObject).forEach(key => {
+    if (allowedParams.includes(key)) {
       mergedObject[key] = originalObject[key]
     }
   })
@@ -38,5 +36,5 @@ function mergeDefaultObject (originalObject, defaultObject = {}) {
 module.exports = {
   kebabCaseObjectKeys,
   objectToQueryString,
-  mergeDefaultObject
+  validateParams
 }

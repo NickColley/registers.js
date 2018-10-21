@@ -1,7 +1,7 @@
 const {
   kebabCaseObjectKeys,
   objectToQueryString,
-  mergeDefaultObject
+  validateParams
 } = require('./utilities.js')
 
 describe('utilities', () => {
@@ -47,34 +47,24 @@ describe('utilities', () => {
       expect(queryString).toEqual('?camelCaseKey=value&kebab-case-key=second-value')
     })
   })
-  describe('mergeDefaultObject', () => {
+  describe('validateParams', () => {
     it('it returns empty object if no default is passed', () => {
       const originalObject = {
         camelCaseKey: 'value',
         'kebab-case-key': 'second-value'
       }
-      const mergedObject = mergeDefaultObject(originalObject)
+      const mergedObject = validateParams(originalObject)
       expect(mergedObject).toEqual({})
     })
-    it('it returns default object values if nothing overrides it', () => {
-      const originalObject = {
-        'kebab-case-key': 'second-value'
-      }
-      const defaultObject = {
-        camelCaseKey: 'default'
-      }
-      const mergedObject = mergeDefaultObject(originalObject, defaultObject)
-      expect(mergedObject).toEqual({ camelCaseKey: 'default' })
-    })
-    it('it returns default object values with overrides values from original object', () => {
+    it('it returns object with only allowed values', () => {
       const originalObject = {
         'kebab-case-key': 'second-value',
         camelCaseKey: 'overridden'
       }
-      const defaultObject = {
-        camelCaseKey: 'default'
-      }
-      const mergedObject = mergeDefaultObject(originalObject, defaultObject)
+      const allowedParams = [
+        'camelCaseKey'
+      ]
+      const mergedObject = validateParams(originalObject, allowedParams)
       expect(mergedObject).toEqual({ camelCaseKey: 'overridden' })
     })
   })

@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const {
   kebabCaseObjectKeys,
   objectToQueryString,
-  mergeDefaultObject
+  validateParams
 } = require('./src/utilities.js')
 
 function request (url) {
@@ -22,9 +22,9 @@ class Registers {
   constructor (name) {
     this.name = name
   }
-  _getEndpoint (pathname, params = {}, defaultParams = {}) {
+  _getEndpoint (pathname, params = {}, allowedParams = []) {
     const formattedParams = kebabCaseObjectKeys(params)
-    const mergedParams = mergeDefaultObject(formattedParams, defaultParams)
+    const mergedParams = validateParams(formattedParams, allowedParams)
     const paramString = objectToQueryString(mergedParams)
     return `https://${this.name}.register.gov.uk/${pathname}${paramString}`
   }
@@ -33,13 +33,27 @@ class Registers {
       this._getEndpoint('register')
     )
   }
-  records (params = {}) {
-    const defaultParams = {
-      'page-size': 100, // Maximum 5000
-      'page-index': 1
+  records (keyOrParams, options = {}) {
+    const allowedParams = [
+      'page-size', // (Optional) Maximum 5000
+      'page-index', // (Optional)
+      'field-name', // (Optional)
+      'field-value' // (Required if field-name set)
+    ]
+    let params = {}
+    let pathname = 'records'
+
+    if (typeof keyOrParams === 'string') { // /records/{key}
+      pathname += '/' + keyOrParams
+      if (options.entries) { // /records/{key}/entries
+        pathname += '/entries'
+      }
+    } else { // /records, // /records/{field-name}/{field-value}
+      params = keyOrParams
     }
+
     return request(
-      this._getEndpoint('records', params, defaultParams)
+      this._getEndpoint(pathname, params, allowedParams)
     )
   }
   entries () {

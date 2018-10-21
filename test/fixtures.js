@@ -14,7 +14,7 @@ module.exports = {
       'total-entries': 66,
       'total-records': 44
     },
-    'records?page-size=100&page-index=1': {
+    'records': {
       'ddat-profession-capability-framework': {
         'index-entry-number': '66',
         'entry-number': '66',
@@ -933,6 +933,131 @@ module.exports = {
               'fields'
             ],
             register: 'register'
+          }
+        ]
+      }
+    },
+    'records/country': {
+      country: {
+        'index-entry-number': '49',
+        'entry-number': '49',
+        'entry-timestamp': '2018-06-07T13:43:14Z',
+        key: 'country',
+        item: [
+          {
+            phase: 'beta',
+            registry: 'foreign-commonwealth-office',
+            text:
+              'British English names and descriptive terms for countries as recognised by the UK government',
+            fields: [
+              'country',
+              'name',
+              'official-name',
+              'citizen-names',
+              'start-date',
+              'end-date'
+            ],
+            register: 'country'
+          }
+        ]
+      }
+    },
+    'records/country/entries': [
+      {
+        'index-entry-number': '2',
+        'entry-number': '2',
+        'entry-timestamp': '2016-08-04T14:45:41Z',
+        key: 'country',
+        'item-hash': [
+          'sha-256:610bde42d3ae2ed3dd829263fe461542742a10ca33865d96d31ae043b242c300'
+        ]
+      },
+      {
+        'index-entry-number': '49',
+        'entry-number': '49',
+        'entry-timestamp': '2018-06-07T13:43:14Z',
+        key: 'country',
+        'item-hash': [
+          'sha-256:7a0afa860ea3fd1f92c9c3d96a5df26cd9345360adaf6fc8d6ac1e0a282d372f'
+        ]
+      }
+    ],
+    'records?field-value=register&field-name=ofqual': {
+      'qualification-assessment-method': {
+        'index-entry-number': '43',
+        'entry-number': '43',
+        'entry-timestamp': '2018-02-23T12:39:25Z',
+        key: 'qualification-assessment-method',
+        item: [
+          {
+            phase: 'beta',
+            registry: 'ofqual',
+            text: 'Assessment methods of qualifications regulated by Ofqual',
+            fields: [
+              'qualification-assessment-method',
+              'name',
+              'start-date',
+              'end-date'
+            ],
+            register: 'qualification-assessment-method'
+          }
+        ]
+      },
+      'qualification-level': {
+        'index-entry-number': '44',
+        'entry-number': '44',
+        'entry-timestamp': '2018-02-23T12:40:01Z',
+        key: 'qualification-level',
+        item: [
+          {
+            phase: 'beta',
+            registry: 'ofqual',
+            text: 'Levels of qualifications regulated by Ofqual',
+            fields: [
+              'qualification-level',
+              'name',
+              'qualification-sub-level',
+              'european-qualification-framework-level',
+              'start-date',
+              'end-date'
+            ],
+            register: 'qualification-level'
+          }
+        ]
+      },
+      'qualification-sector-subject-area': {
+        'index-entry-number': '45',
+        'entry-number': '45',
+        'entry-timestamp': '2018-02-23T12:40:25Z',
+        key: 'qualification-sector-subject-area',
+        item: [
+          {
+            phase: 'beta',
+            registry: 'ofqual',
+            text: 'Subjects of qualifications regulated by Ofqual',
+            fields: [
+              'qualification-sector-subject-area',
+              'parent-qualification-sector-subject-area',
+              'name',
+              'start-date',
+              'end-date'
+            ],
+            register: 'qualification-sector-subject-area'
+          }
+        ]
+      },
+      'qualification-type': {
+        'index-entry-number': '55',
+        'entry-number': '55',
+        'entry-timestamp': '2018-06-07T13:46:10Z',
+        key: 'qualification-type',
+        item: [
+          {
+            phase: 'beta',
+            registry: 'ofqual',
+            text: 'Types of qualifications regulated by Ofqual',
+            fields: ['qualification-type', 'name', 'start-date', 'end-date'],
+            register: 'qualification-type'
           }
         ]
       }

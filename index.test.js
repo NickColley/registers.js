@@ -30,16 +30,14 @@ describe('Registers', () => {
     })
   })
   describe('records', () => {
-    let fixture
-    beforeEach(() => {
-      fixture = fixtures['register']['records?page-size=100&page-index=1']
-      fetch.mockResponse(JSON.stringify(fixture))
-    })
     it('returns json with defaults set', async () => {
+      const fixture = fixtures['register']['records']
+      fetch.mockResponse(JSON.stringify(fixture))
+
       const register = new Registers('register')
       const result = await register.records()
 
-      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/records?page-size=100&page-index=1', {
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/records', {
         headers: {
           'Accept': 'application/json'
         }
@@ -47,7 +45,7 @@ describe('Registers', () => {
       expect(Object.keys(result).length).toBe(44)
       expect(result).toEqual(fixture)
     })
-    it('has options that can be set', async () => {
+    it('params page size and index can be set', async () => {
       const register = new Registers('register')
       await register.records({ pageSize: 5000, pageIndex: 2 })
 
@@ -56,6 +54,51 @@ describe('Registers', () => {
           'Accept': 'application/json'
         }
       })
+    })
+    it('can get individual record using a key', async () => {
+      const fixture = fixtures['register']['records/country']
+      fetch.mockResponse(JSON.stringify(fixture))
+
+      const register = new Registers('register')
+      const result = await register.records('country')
+
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/records/country', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      expect(Object.keys(result).length).toBe(1)
+      expect(result).toEqual(fixture)
+    })
+    it('can get individual record entries', async () => {
+      const fixture = fixtures['register']['records/country/entries']
+      fetch.mockResponse(JSON.stringify(fixture))
+
+      const register = new Registers('register')
+      const result = await register.records('country', { entries: true })
+
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/records/country/entries', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      expect(Object.keys(result).length).toBe(2)
+      expect(result).toEqual(fixture)
+    })
+    it('can get records that share a field-value for a particular field-name.', async () => {
+      const fixture = fixtures['register']['records?field-value=register&field-name=ofqual']
+      fetch.mockResponse(JSON.stringify(fixture))
+
+      const register = new Registers('register')
+      const result = await register.records({ fieldValue: 'register', fieldName: 'ofqual' })
+
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/records?field-value=register&field-name=ofqual', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      expect(Object.keys(result).length).toBe(4)
+      expect(result).toEqual(fixture)
     })
   })
   describe.skip('pagination', () => {})
