@@ -86,9 +86,9 @@ class Registers {
       this._getEndpoint(pathname, params, allowedParams)
     )
   }
-  items () {
+  items (itemHash) {
     return request(
-      this._getEndpoint('items')
+      this._getEndpoint(`items/${itemHash}`)
     )
   }
   downloadRegister () {

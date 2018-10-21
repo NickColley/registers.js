@@ -149,9 +149,9 @@ describe('Registers', () => {
       fetch.mockResponse(JSON.stringify(fixture))
 
       const register = new Registers('register')
-      const result = await register.items()
+      const result = await register.items('sha-256:610bde42d3ae2ed3dd829263fe461542742a10ca33865d96d31ae043b242c300')
 
-      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/items', {
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/items/sha-256:610bde42d3ae2ed3dd829263fe461542742a10ca33865d96d31ae043b242c300', {
         headers: {
           'Accept': 'application/json'
         }
