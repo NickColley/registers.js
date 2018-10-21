@@ -2,6 +2,10 @@
   "name": "registers",
   "version": "0.0.1",
   "description": "JavaScript client for the GOV.UK Registers project",
+  "keywords": [
+    "govuk",
+    "registers"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "standard && jest"
