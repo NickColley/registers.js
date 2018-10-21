@@ -10,6 +10,10 @@ Work in progress at the moment, see [todo](#todo) for more.
 npm install --save nickcolley/registers.js
 ```
 
+### Glitch
+
+You can try this library out on Glitch with the [registers.js boilerplate project](https://registers-js-boilerplate.glitch.me)
+
 ## Node
 
 > This project uses async/await in the examples which requires Node v8.x+.
