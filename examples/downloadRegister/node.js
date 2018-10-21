@@ -2,7 +2,7 @@ const fs = require('fs')
 const Registers = require('registers')
 const country = new Registers('country')
 
-async function main () {
+async function App () {
   const buffer = await country.downloadRegister()
   fs.writeFile('register.zip', buffer, function (err) {
     if (err) {
@@ -11,4 +11,4 @@ async function main () {
     console.log('register.zip downloaded')
   })
 }
-main()
+App()

@@ -1,7 +1,7 @@
 const Registers = require('registers')
 const register = new Registers('register')
 
-async function main () {
+async function App () {
   try {
     // GET /register
     // https://docs.registers.service.gov.uk/api_reference/get_register/#get-register
@@ -52,4 +52,4 @@ async function main () {
   }
 }
 
-main()
+App()

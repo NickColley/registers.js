@@ -30,12 +30,12 @@ The examples below uses the ['country' register](https://www.registers.service.g
 const Registers = require('registers')
 const country = new Registers('country')
 
-async function main () {
+async function App () {
   const info = await country.register()
   console.log('GET /register', info)
 }
 
-main()
+App()
 ```
 
 ### [GET /register](https://docs.registers.service.gov.uk/api_reference/get_register/#get-register)
