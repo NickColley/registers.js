@@ -150,4 +150,5 @@ npm test -- --watch
 ```
 
 ### Thanks
-This project was mainly made to learn but is in places inspired by [Octokit/rest.js](https://github.com/octokit/rest.js)
+- This project was mainly made to learn but is in places inspired by [Octokit/rest.js](https://github.com/octokit/rest.js)
+- GOV.UK Registers team for creating a well documented API
