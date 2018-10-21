@@ -5,6 +5,9 @@ function camelCaseToKebabCase (string) {
 }
 
 function kebabCaseObjectKeys (object) {
+  if (typeof object === 'undefined') {
+    throw new Error('expected object to be passed')
+  }
   let formattedObject = {}
   Object.keys(object).forEach(key => {
     formattedObject[camelCaseToKebabCase(key)] = object[key]
@@ -13,11 +16,14 @@ function kebabCaseObjectKeys (object) {
 }
 
 function objectToQueryString (object) {
+  if (typeof object === 'undefined') {
+    throw new Error('expected object to be passed')
+  }
   const stringifiedParams = querystring.stringify(object)
   return stringifiedParams ? ('?' + stringifiedParams) : ''
 }
 
-function mergeDefaultObject (originalObject, defaultObject) {
+function mergeDefaultObject (originalObject, defaultObject = {}) {
   let mergedObject = {}
   Object.keys(defaultObject).forEach(key => {
     if (typeof originalObject[key] === 'undefined') {
