@@ -15,7 +15,7 @@ npm install --save nickcolley/registers.js
 
 ### Glitch
 
-You can try this library out on Glitch with the [registers.js boilerplate project](https://registers-js-boilerplate.glitch.me)
+You can try this library out on Glitch with the [registers.js boilerplate project](https://glitch.com/~registers-js-boilerplate)
 
 ## Node
 
