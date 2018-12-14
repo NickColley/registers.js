@@ -104,6 +104,15 @@ describe('Registers', () => {
       expect(Object.keys(result).length).toBe(4)
       expect(result).toEqual(fixture)
     })
+    it('queries the requested API version', async () => {
+      const register = new Registers('register', { version: 'next' })
+      await register.records()
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/next/records', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+    })
   })
   describe('entries', () => {
     it('returns json with defaults set', async () => {
@@ -120,6 +129,15 @@ describe('Registers', () => {
       })
       expect(Object.keys(result).length).toBe(66)
       expect(result).toEqual(fixture)
+    })
+    it('queries the requested API version', async () => {
+      const register = new Registers('register', { version: 'next' })
+      await register.entries()
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/next/entries', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
     })
     it('params start and limit can be set', async () => {
       const register = new Registers('register')
@@ -162,6 +180,39 @@ describe('Registers', () => {
       })
       expect(Object.keys(result).length).toBe(5)
       expect(result).toEqual(fixture)
+    })
+    it('uses /blobs for v2', async () => {
+      const register = new Registers('register', { version: 'next' })
+      await register.items('1220610bde42d3ae2ed3dd829263fe461542742a10ca33865d96d31ae043b242c300')
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/next/blobs/1220610bde42d3ae2ed3dd829263fe461542742a10ca33865d96d31ae043b242c300', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+    })
+  })
+  describe('blobs', () => {
+    it('fetches a page of blobs', async () => {
+      const register = new Registers('register', { version: 'next' })
+      await register.blobs()
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/next/blobs', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+    })
+    it('fetches a single blob', async () => {
+      const register = new Registers('register', { version: 'next' })
+      await register.blobs('1220610bde42d3ae2ed3dd829263fe461542742a10ca33865d96d31ae043b242c300')
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/next/blobs/1220610bde42d3ae2ed3dd829263fe461542742a10ca33865d96d31ae043b242c300', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+    })
+    it('is unavailable in v1', async () => {
+      const register = new Registers('register')
+      expect(() => { register.blobs() }).toThrowError(Error)
     })
   })
   describe('download-register', () => {

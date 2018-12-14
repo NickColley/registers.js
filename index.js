@@ -7,16 +7,33 @@ const {
 const request = require('./src/request.js')
 
 class Registers {
-  constructor (name) {
+  constructor (name, { version } = {}) {
     this.name = name
+
+    if (typeof version === 'undefined') {
+      this.version = 'v1'
+    } else if (typeof version === 'string') {
+      this.version = version
+    } else {
+      throw new TypeError(version)
+    }
   }
   _getEndpoint (pathname, params = {}, allowedParams = []) {
     const formattedParams = kebabCaseObjectKeys(params)
     const mergedParams = validateParams(formattedParams, allowedParams)
     const paramString = objectToQueryString(mergedParams)
-    return `https://${this.name}.register.gov.uk/${pathname}${paramString}`
+
+    if (this.version === 'v1') {
+      return `https://${this.name}.register.gov.uk/${pathname}${paramString}`
+    } else {
+      return `https://${this.name}.register.gov.uk/${this.version}/${pathname}${paramString}`
+    }
   }
   register () {
+    if (this.version !== 'v1') {
+      throw new Error(`Resource unavailable in ${this.version}`)
+    }
+
     return request(
       this._getEndpoint('register')
     )
@@ -71,11 +88,34 @@ class Registers {
     )
   }
   items (itemHash) {
+    if (this.version !== 'v1') {
+      return this.blobs(itemHash)
+    }
+
     return request(
       this._getEndpoint(`items/${itemHash}`)
     )
   }
+  blobs (blobHashOrParams) {
+    if (this.version === 'v1') {
+      throw new Error('Resource unavailable in v1')
+    }
+
+    if (typeof blobHashOrParams === 'string') {
+      return request(
+        this._getEndpoint(`blobs/${blobHashOrParams}`)
+      )
+    } else {
+      return request(
+        this._getEndpoint(`blobs`)
+      )
+    }
+  }
   downloadRegister () {
+    if (this.version !== 'v1') {
+      throw new Error(`Resource unavailable in ${this.version}`)
+    }
+
     return request(
       this._getEndpoint('download-register'),
       'blob'
