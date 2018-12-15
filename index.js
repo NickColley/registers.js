@@ -4,7 +4,7 @@ const {
   validateParams
 } = require('./src/utilities.js')
 
-const request = require('./src/request.js')
+const { request, Page } = require('./src/request.js')
 
 class Registers {
   constructor (name, { version } = {}) {
@@ -106,7 +106,7 @@ class Registers {
         this._getEndpoint(`blobs/${blobHashOrParams}`)
       )
     } else {
-      return request(
+      return Page.request(
         this._getEndpoint(`blobs`)
       )
     }

@@ -11,7 +11,7 @@ const fixtures = require('./test/fixtures.js')
 const Registers = require('./index.js')
 
 beforeEach(() => {
-  fetch.mockClear()
+  fetch.resetMocks()
 })
 
 describe('Registers', () => {
@@ -178,6 +178,7 @@ describe('Registers', () => {
           'Accept': 'application/json'
         }
       })
+
       expect(Object.keys(result).length).toBe(5)
       expect(result).toEqual(fixture)
     })
@@ -205,6 +206,53 @@ describe('Registers', () => {
       const register = new Registers('register', { version: 'next' })
       await register.blobs('1220610bde42d3ae2ed3dd829263fe461542742a10ca33865d96d31ae043b242c300')
       expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/next/blobs/1220610bde42d3ae2ed3dd829263fe461542742a10ca33865d96d31ae043b242c300', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+    })
+    it('returns null if there is no next page', async () => {
+      const fixture = fixtures['register']['next/blobs']
+      fetch.mockResponse(JSON.stringify(fixture))
+
+      const register = new Registers('register', { version: 'next' })
+      const page = await register.blobs()
+      expect(page.next()).toBeNull()
+    })
+    it('can fetch multiple pages', async () => {
+      const fixturePage1 = fixtures['register']['next/blobs'].slice(0, 2)
+      const fixturePage2 = fixtures['register']['next/blobs'].slice(2, 4)
+      fetch.mockResponseOnce(
+        JSON.stringify(fixturePage1),
+        {
+          status: 200,
+          url: 'https://register.register.gov.uk/next/blobs',
+          headers: { 'content-type': 'application/json', 'Link': '<?start=foo&limit=100>; rel="next"' }
+        }
+      )
+      fetch.mockResponseOnce(
+        JSON.stringify(fixturePage2),
+        {
+          status: 200,
+          url: 'https://register.register.gov.uk/next/blobs?start=foo&limit=100',
+          headers: { 'content-type': 'application/json' }
+        }
+      )
+
+      const register = new Registers('register', { version: 'next' })
+      const page = await register.blobs()
+      const nextPage = await page.next()
+
+      expect(page.items).toEqual(fixturePage1)
+      expect(nextPage.items).toEqual(fixturePage2)
+
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/next/blobs', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+
+      expect(fetch).toHaveBeenCalledWith('https://register.register.gov.uk/next/blobs?start=foo&limit=100', {
         headers: {
           'Accept': 'application/json'
         }
